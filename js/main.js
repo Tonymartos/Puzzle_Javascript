@@ -1,82 +1,84 @@
+//Variables globales
+let npiezas = 16;
 var debug = true;
+//Array con el nombre de las imagenes para el puzzle
+let piezas = [];
 
-function iniciar() {
+function pinicio() {
     generapuzzle();
 }
-
-
-let generapuzzle = () => {
-    let npiezas = 17;
-    let piezas = [];
-    let anumeros = [];
-    for(i=0;i<npiezas;i++){
-        piezas[i] = "auto"+i+".jpg";
+let generaimg = () => {
+    //Numero total de piezas
+    //Ruta donde se encuentran las imagenes
+    let ruta = "/fotos";
+    let nimg = "auto";
+    //Almacenamos las imagenes en el array piezas
+    for (i = 1; i < npiezas; i++) {
+        piezas[i] = nimg + i + ".jpg";
     }
-    for (i = 0; i < piezas.length; i++) {
-        let numero = Math.floor(Math.random() * piezas);
-        console.log(numero);
-        while (repetido(numero, anumeros)==false) {
-            anumero.push(numero);
-            let addimg = document.createElement("img");
-            addimg.setAttribute(src,"fotos/"+piezas[anumeros[i]]);
-            while(debug){
-                console.log("Repetido: "+numero);
+    return piezas;
+}
+
+//npiezas array del total de las piezas disponibles
+let aleatorio = () => {
+    let numeroa;
+    //Array para almacenar los numeros aleatorios repetidos
+    let anumeros = [];
+    //Bucle para coger cada posicion del array de las imagenes donde generamos un numero aleatorio 
+    for (i = 0; i < npiezas; i++) {
+        do {
+            numeroa = Math.floor(Math.random() * npiezas);
+            if (debug) {
+                console.log(numeroa);
             }
         }
+        //Mientras que realiza la funcion repetido con el numero aleatorio si es igual a un numero almacenado en el array de los numeros aleatorios que hemos sacado del random verificando si el numero aleatorio se repite.
+        while (repetido(numeroa, anumeros));
+        //Agregamos el numero aleatorio que hemos generado en el array.
+        anumeros.push(numeroa);
     }
-};
+    return anumeros;
+}
 
-let repetido = (n, array) => {
+//Funcion si se repite el numero random
+let repetido = (n, numerosaleatorios) => {
     let encontrado = false;
-    for(i=0;i<array.length;i++){
-        if(n===array[i]){
+    if (debug) {
+        console.log("Numeros aleatorios", numerosaleatorios);
+    }
+    for (i = 0; i < numerosaleatorios.length; i++) {
+        if (n === numerosaleatorios[i]) {
+            if (debug) {
+                console.log("encontrado", encontrado);
+            }
             encontrado = true;
         }
+    }
+    if (debug) {
+        console.log("Repetido", n);
     }
     return encontrado;
 };
 
-
-
-
-/* function generapuzzle() {
-    //dfotos ruta donde se encuentra las fotos
-    var dfotos = "fotos/";
-    //Array con los nombres de las imagenes
-    //Array donde se alojaran todos los numeros que se vayan a repetir
-    var imgrandom = [];
-
-    var piezas[] = "auto"+i
-    //Recorre el array total de imagenes
-        for(i=0;i<arrayimg.length;i++){
-            //Generando numero aleatorio
-            var naleatorio = Math.floor(Math.random() * arrayimg.length);
-            // if(debug){
-            //     console.log(naleatorio);
-            // }
-            //Recorre el array de numeros repetidos y verificar si ese numero aleatorio se ha repetido o no.
-            console.log(imgrandom);
-            for(x=0; x<imgrandom.length; x++){
-                if(naleatorio == imgrandom[x]){
-                    if(debug){
-                        console.log("Repeat number: "+imgrandom);
-                    }
-                }else{
-                    imgrandom.push(naleatorio);
-                    if(debug){
-                        console.log("Adding number: "+imgrandom);
-                    }
-                    //Si el numero no es repetido ingresa ese numero en el array de aleatorios se genera la imagen aleatoria
-                    var crearimg = document.createElement('img');
-                    var crearsc = document.createAttribute('src');
-                    crearsc.value=dfotos+arrayimg[imgrandom];
-                }
-            }
+let generapuzzle = () => {
+    generaimg();
+    let aleatorios = aleatorio(npiezas);
+    for (j = 1; j < npiezas; j++) {
+        //Generamos la imagen
+        let gbody = document.getElementsByTagName("body")[0];
+        let addimg = document.createElement("img");
+        //Agregamos el atributo de la colocamos la dirección donde se encuentra la imagen.
+        addimg.setAttribute("src", "fotos/" + piezas[aleatorios[j]]);
+        addimg.setAttribute("id",)
+        if (debug) {
+            console.log(piezas[aleatorios[j]]);
         }
-    } */
+        gbody.appendChild(addimg);
+    }
+};
 
-
-
-
+let cogerpieza = ()  => {
+    
+}
 //Cuando cargue la pagina iniciamos la funcion iniciar
-window.addEventListener("DOMContentLoaded", iniciar);
+window.addEventListener("DOMContentLoaded", pinicio);
