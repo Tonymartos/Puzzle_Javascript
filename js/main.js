@@ -1,19 +1,25 @@
+//Variables Debug
+var debug = false;
+
 //Variables globales
 let npiezas = 16;
-var debug = true;
 //Array con el nombre de las imagenes para el puzzle
 let piezas = [];
+//****Fin variables globales ****
 
 function pinicio() {
     generapuzzle();
+    habimgclick();
+    verificarpuzzle();
 }
+
 let generaimg = () => {
     //Numero total de piezas
     //Ruta donde se encuentran las imagenes
     let ruta = "/fotos";
     let nimg = "auto";
     //Almacenamos las imagenes en el array piezas
-    for (i = 1; i < npiezas; i++) {
+    for (i = 1; i <= npiezas; i++) {
         piezas[i] = nimg + i + ".jpg";
     }
     return piezas;
@@ -27,7 +33,7 @@ let aleatorio = () => {
     //Bucle para coger cada posicion del array de las imagenes donde generamos un numero aleatorio 
     for (i = 0; i < npiezas; i++) {
         do {
-            numeroa = Math.floor(Math.random() * npiezas);
+            numeroa = Math.floor(Math.random() * npiezas + 1);
             if (debug) {
                 console.log(numeroa);
             }
@@ -63,22 +69,49 @@ let repetido = (n, numerosaleatorios) => {
 let generapuzzle = () => {
     generaimg();
     let aleatorios = aleatorio(npiezas);
-    for (j = 1; j < npiezas; j++) {
-        //Generamos la imagen
-        let gbody = document.getElementsByTagName("body")[0];
+    let cdiv = document.createElement("div");
+    cdiv.setAttribute("id", "cpuzzle");
+    let gbody = document.getElementsByTagName("body")[0];
+    gbody.appendChild(cdiv);
+    for (j = 0; j < npiezas; j++) {
+        //Cogemos el body, creamos un div y generamos la imagen
         let addimg = document.createElement("img");
         //Agregamos el atributo de la colocamos la dirección donde se encuentra la imagen.
         addimg.setAttribute("src", "fotos/" + piezas[aleatorios[j]]);
-        addimg.setAttribute("id",)
+        addimg.setAttribute("value", aleatorios[j]);
         if (debug) {
             console.log(piezas[aleatorios[j]]);
         }
-        gbody.appendChild(addimg);
+        cdiv.appendChild(addimg);
     }
 };
 
-let cogerpieza = ()  => {
-    
+let habimgclick = () => {
+    let imgget = document.getElementsByTagName("img");
+    for(i=0;i<imgget.length;i++){
+        imgget[i].addEventListener("click", intercambiar);
+    }
 }
+
+let intercambiar = (e) => {
+    let qimg = e.target.src;
+    let gruta = qimg.indexOf("/fotos");
+    let ruta = qimg.slice(gruta);
+    if(debug){
+        console.log(ruta);
+    }
+}
+
+let verificarpuzzle = () => {
+    let cimagenes = document.getElementsByTagName("img");
+    for(i=0;i<cimagenes.length;i++){
+        let imagen = document.querySelector("img")[i];
+        console.log(imagen);
+    }
+    
+    
+    
+} 
+
 //Cuando cargue la pagina iniciamos la funcion iniciar
 window.addEventListener("DOMContentLoaded", pinicio);
