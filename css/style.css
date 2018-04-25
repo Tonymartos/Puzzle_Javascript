@@ -1,0 +1,14 @@
+#cpuzzle{
+    margin: 0 auto;
+    height: 1000px;
+    width: 1000px;
+}
+
+.ocultar{
+    display: none;
+}
+
+.final{
+    color: rgb(0, 173, 66);
+    text-align: center;
+}
