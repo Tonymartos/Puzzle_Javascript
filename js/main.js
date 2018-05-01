@@ -113,7 +113,7 @@ let habimgclick = () => {
 
 let getrutas = (e) => {
     let qimg = e.target.src;
-    let gruta = qimg.indexOf("/fotos");
+    let gruta = qimg.indexOf("fotos");
     let rutac = qimg.slice(gruta);
     if (r.length > 0) {
         r2 = rutac;
