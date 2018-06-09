@@ -1,3 +1,4 @@
+//Cuando cargue la pagina iniciamos la funcion iniciar
 //Variables Debug
 let debug = false;
 let debug2 = false;
@@ -47,7 +48,7 @@ let aleatorio = () => {
     let numeroa;
     //Array para almacenar los numeros aleatorios repetidos
     let anumeros = [];
-    //Bucle para coger cada posicion del array de las imagenes donde generamos un numero aleatorio 
+    //Bucle para coger cada posicion del array de las imagenes donde generamos un numero aleatorio
     for (i = 0; i < npiezas; i++) {
         do {
             numeroa = Math.floor(Math.random() * npiezas);
@@ -162,7 +163,6 @@ let limpiar = () => {
 //Funcion para revisar todas las imagenes. Devuelve true o false si se encuentra
 //en una posicion incorrecta o correcta y lo añade en un array, esta funcion complementa con vcomplete
 
-
 let checkpuzzle = () => {
     let bverifica = new Array();
     let cimagenes = document.getElementsByTagName("img");
@@ -186,12 +186,13 @@ let checkpuzzle = () => {
     vcomplete(bverifica);
 }
 
-//Funcion para verificar si en el array todas las posiciones se encuentran en true 
+//Funcion para verificar si en el array todas las posiciones se encuentran en true
 //y se procede a la finalizacion del puzzle
 
 let vcomplete = (verificador) => {
     if (verificador.includes(false) != true) {
         clearInterval(cronometroInterval);
+        crearranking();
         let gimg = document.getElementsByTagName("img");
         let gdiv = document.getElementById("cpuzzle");
         for (x = 0; x < gimg.length; x++) {
@@ -294,6 +295,18 @@ let cronometro = () => {
         }
         horasdiv.innerHTML = horas;
     }
+}
+let crearranking = () => {
+  let gbody = document.getElementsByTagName("body")[0];
+  //crear una nuevo div para el cuerpo del puzzle
+  let adiv = document.createElement('div');
+  adiv.setAttribute('puzzleranking');
+  gbody.appendChild(adiv);
+  let gdivpuzzle = document.getElementById('cpuzzle');
+  gbody.appendChild(adiv);
+  let gdivranking = document.createElement('div');
+  gdivranking.setAttribute('ranking');
+  gbody.appendChild(gdivranking);
 }
 
 //Cuando cargue la pagina iniciamos la funcion iniciar
