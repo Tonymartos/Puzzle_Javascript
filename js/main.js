@@ -296,17 +296,57 @@ let cronometro = () => {
         horasdiv.innerHTML = horas;
     }
 }
+
 let crearranking = () => {
   let gbody = document.getElementsByTagName("body")[0];
   //crear una nuevo div para el cuerpo del puzzle
   let adiv = document.createElement('div');
-  adiv.setAttribute('puzzleranking');
+  adiv.setAttribute('id','puzzleranking');
   gbody.appendChild(adiv);
   let gdivpuzzle = document.getElementById('cpuzzle');
-  gbody.appendChild(adiv);
+  adiv.appendChild(gdivpuzzle);
   let gdivranking = document.createElement('div');
-  gdivranking.setAttribute('ranking');
-  gbody.appendChild(gdivranking);
+  gdivranking.setAttribute('id','ranking');
+  adiv.appendChild(gdivranking);
+  let tablaranking = document.createElement('table');
+  let filaranking = document.createElement('tr');
+  let columnaranking = document.createElement('td');
+  gdivranking.appendChild(tablaranking);
+  tablaranking.appendChild(filaranking);
+  filaranking.appendChild(columnaranking);
+  rankingcookie();
+  rankingvalue(columnaranking);
+}
+
+let rankingcookie = () => {
+    let repetir = false;
+    let ghoras = document.getElementById('horas').innerHTML;
+    let gminutos = document.getElementById('minutos').innerHTML;
+    let gsegundos = document.getElementById('segundos').innerHTML;
+    let gcentesimas = document.getElementById('centesimas').innerHTML;
+    while( repetir != true){
+      let nombranking = prompt("Introduzca un nombre para el ranking");
+      let guardarnombre = nombranking;
+      let nombrecookie = document.cookie.includes(nombranking);
+      if( nombrecookie == false){
+        document.cookie=nombranking+'='+ghoras+gminutos+gsegundos+gcentesimas;
+        repetir = true;
+      }else{
+        alert("Nombre ocupado, introduzca otro nombre");
+      }
+    }
+}
+
+let rankingvalue = (columnaranking) => {
+  let gcookies = document.cookie.split(";");
+  let onlycookie = gcookies.split("=");
+  let usuarios = [];
+  let tiempo = gcookies.split("=");
+  for(i=0,fin=gcookies.length;i<fin;i++){
+      usuarios[i]= gcookies.split()
+      columnaranking.innerHTML=onlycookie[0];
+      columnaranking.innerHTML=onlycookie[1];
+  }
 }
 
 //Cuando cargue la pagina iniciamos la funcion iniciar
