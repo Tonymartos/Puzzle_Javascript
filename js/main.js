@@ -309,13 +309,17 @@ let crearranking = () => {
   gdivranking.setAttribute('id','ranking');
   adiv.appendChild(gdivranking);
   let tablaranking = document.createElement('table');
-  let filaranking = document.createElement('tr');
-  let columnaranking = document.createElement('td');
+  for(i=0;i<=10;i++){
+      let filaranking = document.createElement('tr');
+      tablaranking.appendChild(filaranking);
+  }
+  for(x=0;x<=2;x++){
+        let columnaranking = document.createElement('td');
+        columnaranking.setAttribute('id', 'columnatabla');
+  }
   gdivranking.appendChild(tablaranking);
-  tablaranking.appendChild(filaranking);
   filaranking.appendChild(columnaranking);
   rankingcookie();
-  rankingvalue(columnaranking);
 }
 
 let rankingcookie = () => {
@@ -337,13 +341,10 @@ let rankingcookie = () => {
     }
 }
 
-let rankingvalue = (columnaranking) => {
+let rankingvalue = () => {
   let gcookies = document.cookie.split(";");
-  let onlycookie = gcookies.split("=");
-  let usuarios = [];
-  let tiempo = gcookies.split("=");
   for(i=0,fin=gcookies.length;i<fin;i++){
-      usuarios[i]= gcookies.split()
+      let onlycookie = document.cookie.split(';')[i];
       columnaranking.innerHTML=onlycookie[0];
       columnaranking.innerHTML=onlycookie[1];
   }
